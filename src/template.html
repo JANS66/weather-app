@@ -6,11 +6,17 @@
     <title>Weather App</title>
   </head>
   <body>
-    <div id="bg-overlay"></div>
+    <div id="bg-overlay" aria-hidden="true"></div>
 
-    <h1>Weather App</h1>
-    <div id="content">
-      <form id="search-form">
+    <header>
+      <h1>Weather App</h1>
+    </header>
+
+    <main id="content">
+      <form id="search-form" role="search">
+        <label for="search-input" class="visually-hidden"
+          >Search for a city</label
+        >
         <input
           type="text"
           placeholder="e.g. Vilnius"
@@ -21,27 +27,30 @@
       </form>
 
       <div id="controls">
-        <button id="unit-toggle" data-unit="metric">Display °F</button>
+        <button id="unit-toggle" aria-label="Toggle temperature units">
+          Display °F
+        </button>
       </div>
 
+      <div id="status-container" aria-live="polite"></div>
+
       <div id="weather-container"></div>
-      <div id="status-container"></div>
-    </div>
+    </main>
 
     <template id="weather-card-template">
-      <div class="weather-card">
-        <div class="weather-icon-container">
+      <article class="weather-card">
+        <div class="weather-icon-container" aria-hidden="true">
           <i data-lucide="" class="weather-icon"></i>
         </div>
         <h2 class="display-city"></h2>
         <p class="display-conditions"></p>
         <div class="temp-container"></div>
         <p class="display-description"></p>
-      </div>
+      </article>
     </template>
 
     <template id="loading-template">
-      <div class="loader">
+      <div class="loader" role="status">
         <div class="spinner"></div>
         <p>Fetching weather...</p>
       </div>

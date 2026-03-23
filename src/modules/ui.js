@@ -24,6 +24,8 @@ const gifMap = {
     'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTJiYjZ0NHdqdGt1ZmszNnJ4dHFibmZyczF3MDd0d2licW83a2tnMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xaZCqV4weJwHu/giphy.gif',
   cloudy:
     'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHgxanp3MXl6bTk0Yzh6ZHkyMmJ1aXg3MmF2enNhcW8yazQ0YnVyMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7rc6sa2RvKo8K5EI/giphy.gif',
+  'clear-night':
+    'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW90eDFpbnRoNmVpN29lMnV4dXM1MzdsYnR6bnBrZ28wMjFrYXp2aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FlodpfQUBSp20/giphy.gif',
 };
 
 const iconMap = {
@@ -54,6 +56,8 @@ export const clearStatus = () => {
 
 export const renderWeather = (weatherData, unitSuffix) => {
   clearStatus();
+
+  console.log(weatherData);
 
   const template = document.querySelector('#weather-card-template');
   const clone = template.content.cloneNode(true);
