@@ -1,3 +1,4 @@
 import './style.css';
+import * as Events from './modules/events.js';
 
-console.log('Weather app initialized!');
+Events.setupEventListeners();

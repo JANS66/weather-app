@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { watchFile } = require('fs');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -12,12 +12,9 @@ module.exports = {
     clean: true,
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/template.html',
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'main.css',
-    }),
+    new HtmlWebpackPlugin({ template: './src/template.html' }),
+    new MiniCssExtractPlugin({ filename: 'main.css' }),
+    new Dotenv(),
   ],
   module: {
     rules: [
