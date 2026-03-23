@@ -4,11 +4,14 @@ import * as UI from './ui.js';
 
 export const handleLocationSubmit = async (location) => {
   try {
+    UI.showLoading();
+
     const rawData = await API.getWeather(location);
     const weatherInstance = State.setCurrentWeather(rawData);
+
     UI.renderWeather(weatherInstance);
   } catch (error) {
-    console.error(error);
-    alert('Search failed. Check city name or API key.');
+    UI.clearStatus();
+    alert('City not found.');
   }
 };

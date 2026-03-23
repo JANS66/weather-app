@@ -1,9 +1,26 @@
+const statusContainer = document.querySelector('#status-container');
+const weatherContainer = document.querySelector('#weather-container');
+
+export const showLoading = () => {
+  const template = document.querySelector('#loading-template');
+  const clone = template.content.cloneNode(true);
+
+  weatherContainer.innerHTML = '';
+  statusContainer.innerHTML = '';
+  statusContainer.appendChild(clone);
+};
+
+export const clearStatus = () => {
+  statusContainer.innerHTML = '';
+};
+
 export const renderWeather = (weatherData) => {
-  const mountPoint = document.querySelector('#weather-container');
+  clearStatus();
+
   const template = document.querySelector('#weather-card-template');
 
   // 1. Clear previous weather if it exists
-  mountPoint.innerHTML = '';
+  weatherContainer.innerHTML = '';
 
   // 2. Clone the template content
   // 'true' means a deep clone (includes all nested elements)
@@ -19,5 +36,5 @@ export const renderWeather = (weatherData) => {
   clone.querySelector('.display-description').textContent =
     weatherData.description;
 
-  mountPoint.appendChild(clone);
+  weatherContainer.appendChild(clone);
 };

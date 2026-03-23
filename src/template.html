@@ -19,6 +19,7 @@
       </form>
 
       <div id="weather-container"></div>
+      <div id="status-container"></div>
     </div>
 
     <template id="weather-card-template">
@@ -27,6 +28,13 @@
         <p class="display-conditions"></p>
         <div class="temp-container"><span class="display-temp"></span>°C</div>
         <p class="display-description"></p>
+      </div>
+    </template>
+
+    <template id="loading-template">
+      <div class="loader">
+        <div class="spinner"></div>
+        <p>Fetching weather...</p>
       </div>
     </template>
   </body>
