@@ -133,7 +133,22 @@ button:active {
   margin: 10px auto;
 }
 
-/* 6. Animations */
+/* 6. Icons Styling */
+
+.weather-icon {
+  width: 64px;
+  height: 64px;
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+.weather-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 7. Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -154,7 +169,7 @@ button:active {
   }
 }
 
-/* 6. Media Queries for Responsiveness */
+/* 8. Media Queries for Responsiveness */
 
 /* Mobile (Small screens) */
 @media (max-width: 480px) {

@@ -1,5 +1,32 @@
+import {
+  createIcons,
+  Cloud,
+  Sun,
+  CloudRain,
+  Snowflake,
+  Wind,
+  CloudLightning,
+  CloudSun,
+  CloudMoon,
+  Moon,
+  HelpCircle,
+} from 'lucide';
+
 const statusContainer = document.querySelector('#status-container');
 const weatherContainer = document.querySelector('#weather-container');
+
+const iconMap = {
+  snow: 'snowflake',
+  rain: 'cloud-rain',
+  fog: 'cloud',
+  wind: 'wind',
+  cloudy: 'cloud',
+  'partly-cloudy-day': 'cloud-sun',
+  'partly-cloudy-night': 'cloud-moon',
+  'clear-day': 'sun',
+  'clear-night': 'moon',
+  thunderstorm: 'cloud-lightning',
+};
 
 export const showLoading = () => {
   const template = document.querySelector('#loading-template');
@@ -19,16 +46,13 @@ export const renderWeather = (weatherData) => {
 
   const template = document.querySelector('#weather-card-template');
 
-  // 1. Clear previous weather if it exists
   weatherContainer.innerHTML = '';
-
-  // 2. Clone the template content
-  // 'true' means a deep clone (includes all nested elements)
   const clone = template.content.cloneNode(true);
 
-  console.log(weatherData);
+  const lucidName = iconMap[weatherData.icon] || 'help-circle';
+  const iconElement = clone.querySelector('.weather-icon');
 
-  // 3. Fill the clone with data
+  iconElement.setAttribute('data-lucide', lucidName);
   clone.querySelector('.display-city').textContent = weatherData.location;
   clone.querySelector('.display-conditions').textContent =
     weatherData.conditions;
@@ -37,4 +61,18 @@ export const renderWeather = (weatherData) => {
     weatherData.description;
 
   weatherContainer.appendChild(clone);
+  createIcons({
+    icons: {
+      Cloud,
+      Sun,
+      CloudRain,
+      Snowflake,
+      Wind,
+      CloudLightning,
+      CloudSun,
+      CloudMoon,
+      Moon,
+      HelpCircle,
+    },
+  });
 };

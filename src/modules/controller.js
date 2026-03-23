@@ -13,5 +13,6 @@ export const handleLocationSubmit = async (location) => {
   } catch (error) {
     UI.clearStatus();
     alert('City not found.');
+    console.log(error);
   }
 };
