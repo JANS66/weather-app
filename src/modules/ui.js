@@ -41,7 +41,7 @@ export const clearStatus = () => {
   statusContainer.innerHTML = '';
 };
 
-export const renderWeather = (weatherData) => {
+export const renderWeather = (weatherData, unitSuffix) => {
   clearStatus();
 
   const template = document.querySelector('#weather-card-template');
@@ -50,9 +50,10 @@ export const renderWeather = (weatherData) => {
   const clone = template.content.cloneNode(true);
 
   const lucidName = iconMap[weatherData.icon] || 'help-circle';
-  const iconElement = clone.querySelector('.weather-icon');
 
-  iconElement.setAttribute('data-lucide', lucidName);
+  clone.querySelector('.weather-icon').setAttribute('data-lucide', lucidName);
+  clone.querySelector('.temp-container').innerHTML =
+    `<span class="display-temp">${weatherData.temp}</span>${unitSuffix}`;
   clone.querySelector('.display-city').textContent = weatherData.location;
   clone.querySelector('.display-conditions').textContent =
     weatherData.conditions;
@@ -75,4 +76,9 @@ export const renderWeather = (weatherData) => {
       HelpCircle,
     },
   });
+};
+
+export const updateToggleButtonText = (newUnit) => {
+  const toggleButton = document.querySelector('#unit-toggle');
+  toggleButton.textContent = newUnit === 'metric' ? 'Display °F' : 'Display °C';
 };

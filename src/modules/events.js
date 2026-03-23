@@ -3,6 +3,7 @@ import * as Controller from './controller.js';
 export const setupEventListeners = () => {
   const uiElements = {
     searchForm: document.querySelector('#search-form'),
+    unitToggle: document.querySelector('#unit-toggle'),
   };
 
   uiElements.searchForm.addEventListener('submit', (event) => {
@@ -13,5 +14,9 @@ export const setupEventListeners = () => {
       Controller.handleLocationSubmit(searchInput.value);
       searchInput.value = '';
     }
+  });
+
+  uiElements.unitToggle.addEventListener('click', () => {
+    Controller.handleUnitToggle();
   });
 };
