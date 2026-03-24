@@ -1,22 +1,27 @@
 import * as Controller from './controller.js';
 
 export const setupEventListeners = () => {
-  const uiElements = {
-    searchForm: document.querySelector('#search-form'),
-    unitToggle: document.querySelector('#unit-toggle'),
-  };
+  const searchForm = document.querySelector('#search-form');
+  const unitToggle = document.querySelector('#unit-toggle');
 
-  uiElements.searchForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const searchInput = uiElements.searchForm.querySelector('#search-input');
+  // 1. Safety Check: Only attach listeners if elements exist
+  if (searchForm) {
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
 
-    if (searchInput.value) {
-      Controller.handleLocationSubmit(searchInput.value);
-      searchInput.value = '';
-    }
-  });
+      const formData = new FormData(searchForm);
+      const location = formData.get('search-input')?.trim();
 
-  uiElements.unitToggle.addEventListener('click', () => {
-    Controller.handleUnitToggle();
-  });
+      if (location) {
+        Controller.handleLocationSubmit(location);
+        searchForm.reset();
+      }
+    });
+  }
+
+  if (unitToggle) {
+    unitToggle.addEventListener('click', () => {
+      Controller.handleUnitToggle();
+    });
+  }
 };

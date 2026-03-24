@@ -57,8 +57,6 @@ export const clearStatus = () => {
 export const renderWeather = (weatherData, unitSuffix) => {
   clearStatus();
 
-  console.log(weatherData);
-
   const template = document.querySelector('#weather-card-template');
   const clone = template.content.cloneNode(true);
   const gifUrl = gifMap[weatherData.icon] || gifMap['cloudy'];
