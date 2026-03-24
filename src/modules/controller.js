@@ -17,6 +17,7 @@ export const handleLocationSubmit = async (location) => {
     UI.renderWeather(weatherInstance, unitSuffix);
   } catch (error) {
     UI.clearStatus();
+    UI.renderError("We couldn't find that city. Please try again.");
     console.error('Weather Fetch Error:', error);
   }
 };

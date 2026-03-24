@@ -15,6 +15,24 @@ import {
 const statusContainer = document.querySelector('#status-container');
 const weatherContainer = document.querySelector('#weather-container');
 const bgOverlay = document.querySelector('#bg-overlay');
+const weatherTemplate = document.querySelector('#weather-card-template');
+const loadingTemplate = document.querySelector('#loading-template');
+
+// Icons configuration object
+const LUCIDE_CONFIG = {
+  icons: {
+    Cloud,
+    Sun,
+    CloudRain,
+    Snowflake,
+    Wind,
+    CloudLightning,
+    CloudSun,
+    CloudMoon,
+    Moon,
+    HelpCircle,
+  },
+};
 
 const gifMap = {
   rain: 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2x4eDNiZ2tyNjlnZHR6cDVuZmY1dWd6ZTdsYmtvMmpoZWhvaHhyYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hWvk9iUU4uBBeyBq0k/giphy.gif',
@@ -41,10 +59,17 @@ const iconMap = {
   thunderstorm: 'cloud-lightning',
 };
 
-export const showLoading = () => {
-  const template = document.querySelector('#loading-template');
-  const clone = template.content.cloneNode(true);
+export const renderError = (message) => {
+  weatherContainer.innerHTML = '';
+  statusContainer.innerHTML = `
+    <div class="error-message" role="alert">
+      <p>⚠️ ${message}</p>
+    </div>
+  `;
+};
 
+export const showLoading = () => {
+  const clone = loadingTemplate.content.cloneNode(true);
   weatherContainer.innerHTML = '';
   statusContainer.innerHTML = '';
   statusContainer.appendChild(clone);
@@ -56,42 +81,38 @@ export const clearStatus = () => {
 
 export const renderWeather = (weatherData, unitSuffix) => {
   clearStatus();
+  weatherContainer.innerHTML = '';
 
-  const template = document.querySelector('#weather-card-template');
-  const clone = template.content.cloneNode(true);
+  const clone = weatherTemplate.content.cloneNode(true);
   const gifUrl = gifMap[weatherData.icon] || gifMap['cloudy'];
   const lucidName = iconMap[weatherData.icon] || 'help-circle';
 
-  bgOverlay.style.backgroundImage = `url('${gifUrl}')`;
+  if (bgOverlay) {
+    bgOverlay.style.backgroundImage = `url(${gifUrl})`;
+  }
 
-  clone.querySelector('.weather-icon').setAttribute('data-lucide', lucidName);
-  clone.querySelector('.temp-container').innerHTML =
-    `<span class="display-temp">${weatherData.temp}</span>${unitSuffix}`;
+  const iconEl = clone.querySelector('.weather-icon');
+  const tempEl = clone.querySelector('.temp-container');
+
+  iconEl.setAttribute('data-lucide', lucidName);
+
   clone.querySelector('.display-city').textContent = weatherData.location;
   clone.querySelector('.display-conditions').textContent =
     weatherData.conditions;
-  clone.querySelector('.display-temp').textContent = weatherData.temp;
   clone.querySelector('.display-description').textContent =
     weatherData.description;
 
+  tempEl.innerHTML = `<span class="display-temp">${weatherData.temp}</span>${unitSuffix}`;
+
   weatherContainer.appendChild(clone);
-  createIcons({
-    icons: {
-      Cloud,
-      Sun,
-      CloudRain,
-      Snowflake,
-      Wind,
-      CloudLightning,
-      CloudSun,
-      CloudMoon,
-      Moon,
-      HelpCircle,
-    },
-  });
+
+  createIcons(LUCIDE_CONFIG);
 };
 
 export const updateToggleButtonText = (newUnit) => {
   const toggleButton = document.querySelector('#unit-toggle');
-  toggleButton.textContent = newUnit === 'metric' ? 'Display °F' : 'Display °C';
+  if (toggleButton) {
+    toggleButton.textContent =
+      newUnit === 'metric' ? 'Display °F' : 'Display °C';
+  }
 };
