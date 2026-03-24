@@ -1,14 +1,20 @@
 export default class Weather {
   constructor(rawJson) {
-    this.location = rawJson.resolvedAddress;
-    this.description = rawJson.description;
+    if (!rawJson || !rawJson.currentConditions) {
+      throw new Error('Incomplete weather data provided to model');
+    }
 
-    // Extracting nested current conditions
+    this.location = rawJson.resolvedAddress || 'Unknown Location';
+    this.description = rawJson.description || 'No description available.';
+
     const current = rawJson.currentConditions;
-    this.temp = Math.round(current.temp);
-    this.feelsLike = Math.round(current.feelslike);
-    this.humidity = current.humidity;
-    this.conditions = current.conditions;
-    this.icon = current.icon;
+
+    this.temp = Math.round(current.temp ?? 0);
+    this.conditions = current.conditions || 'Clear';
+    this.icon = current.icon || 'cloudy';
+
+    // 3. Immutability
+    // Prevents accidental changes to the weather object after it's created
+    Object.freeze(this);
   }
 }
